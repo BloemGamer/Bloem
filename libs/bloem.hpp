@@ -15,6 +15,7 @@ public:
 	std::vector<std::function<void(void)>> functions;
 	void setup(char* filename);
 	void run();
+	void add_function(std::function<void(void)> func, std::size_t index);
 
 
 	bloem(/* args */);

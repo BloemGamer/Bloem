@@ -28,13 +28,20 @@ void bloem::setup(char* filename_)
 	
 	input.close();
 	functions.resize(__max(functions.size(), extra_functions + amount_basic_instructions));
-	std::cout << file;
+	// std::cout << file;
 
 }
 
 void bloem::run()
 {
 
+}
+
+void bloem::add_function(std::function<void(void)> func, std::size_t index)
+{
+	if(index >= functions.size()) 
+		std::cerr << "Couldn't add function, not enough memory reserved, add more memory with \"#extra_functions\" or changing the \"extra_functions\" variable";
+	functions[index] = func;
 }
 
 
