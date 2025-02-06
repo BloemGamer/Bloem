@@ -11,12 +11,14 @@
 
 std::vector<std::string> split(std::string s, std::string delimiter);
 
-void bloem::setup(char* filename_)
+void bloem::setup(const char* filename_)
 {
+	
 	std::size_t amount_lines;
 	std::string text_file;
 	std::string file;
-	filename.replace_filename(filename_);
+	if((int)std::strcmp(filename_, " "))
+		filename.replace_filename(filename_);
 	std::ifstream input(filename);
 	for(amount_lines = 0; std::getline(input, text_file); amount_lines++)
 	{
