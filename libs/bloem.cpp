@@ -49,7 +49,6 @@ void bloem::setup(char* filename_)
 
 	input.close();
 	functions.resize(__max(functions.size(), extra_functions + amount_basic_instructions));
-	std::cout << instructions[0][0];
 }
 
 std::vector<std::string> split(std::string s, std::string delimiter)
@@ -70,8 +69,13 @@ std::vector<std::string> split(std::string s, std::string delimiter)
 
 void bloem::run()
 {
-	std::size_t place_in_instruction;
-	for()
+	std::size_t place;
+	for(place = 0; place < instructions.size(); place++)
+	{
+		if(instructions[place].size() == 0)
+			continue;
+		functions[instructions[place][0]]();
+	}
 }
 
 void bloem::add_function(std::function<void(void)> func, std::size_t index)
