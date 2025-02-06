@@ -8,6 +8,7 @@ class bloem
 {
 private:
 	std::filesystem::path filename;
+	std::vector<std::vector<long long>> instructions;
 	
 	std::size_t extra_functions = 0;
 	std::size_t amount_basic_instructions = 0;
