@@ -13,7 +13,6 @@ std::vector<std::string> split(std::string s, std::string delimiter);
 
 void bloem::setup(const char* filename_)
 {
-	
 	std::size_t amount_lines;
 	std::string text_file;
 	std::string file;
@@ -29,7 +28,6 @@ void bloem::setup(const char* filename_)
 		}
 		file.append(text_file, 0, text_file.find("//"));
 		file.append(" ");
-
 	}
 
 	instructions.clear();
@@ -37,6 +35,10 @@ void bloem::setup(const char* filename_)
 	std::vector<std::string> lines = split(file, ";");
 	for(size_t i = 0; i < lines.size(); i++)
 	{
+		if(lines[i].size() == 0)
+		{
+			continue;
+		}
 		instructions.resize(instructions.size() + 1);
 		std::vector<std::string> line = split(lines[i], " ");
 		for(size_t j = 0; j < line.size(); j++)
@@ -76,6 +78,10 @@ void bloem::run()
 	{
 		if(instructions[place].size() == 0)
 			continue;
+		for(size_t place_memorycell = 1; place_memorycell < __min(AMOUNT_MEMORYCELLS, instructions[place].size()); place_memorycell++)
+		{
+			memory_cells[place_memorycell] = (void*)&instructions[place][place_memorycell];
+		}
 		functions[instructions[place][0]]();
 	}
 }
