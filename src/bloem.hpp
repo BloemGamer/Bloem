@@ -6,7 +6,7 @@
 
 #define AMOUNT_MEMORYCELLS 9
 
-class bloem
+class Bloem
 {
 private:
 	std::vector<std::vector<long long>> instructions;
@@ -17,14 +17,17 @@ public:
 	void* memory_cells[AMOUNT_MEMORYCELLS];
 	std::filesystem::path filename;
 	std::vector<std::function<void(void)>> functions;
+	bool exit_ = false;
+
 	void setup(const char* filename = " ");
 	void run();
-	void add_function(std::function<void(void)> func, std::size_t index);
+	void add_function(std::size_t index, std::function<void(void)> func);
 	void add_standard_functions(void);
 
 
-	bloem(/* args */);
-	~bloem();
+	Bloem(/* args */);
+	~Bloem();
 };
 
+extern Bloem* global_bloem;
 
