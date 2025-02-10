@@ -20,6 +20,7 @@ public:
 	void setup(const char* filename = " ");
 	void run();
 	void add_function(std::function<void(void)> func, std::size_t index);
+	void add_standard_functions(void);
 
 
 	bloem(/* args */);

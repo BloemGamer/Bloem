@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <regex>
 #include "bloem.hpp"
+#include "../libs/basic_functions.hpp"
 
 std::vector<std::string> split(std::string s, std::string delimiter);
 
@@ -52,6 +53,7 @@ void bloem::setup(const char* filename_)
 	}
 
 	input.close();
+	add_standard_functions();
 	functions.resize(__max(functions.size(), extra_functions + amount_basic_instructions));
 }
 
@@ -61,13 +63,14 @@ std::vector<std::string> split(std::string s, std::string delimiter)
     std::string token;
     std::vector<std::string> res;
 
-    while ((pos_end = s.find(delimiter, pos_start)) != std::string::npos) {
+    while((pos_end = s.find(delimiter, pos_start)) != std::string::npos)
+	{
         token = s.substr (pos_start, pos_end - pos_start);
         pos_start = pos_end + delim_len;
         res.push_back (token);
     }
 
-    res.push_back (s.substr (pos_start));
+    res.push_back(s.substr (pos_start));
     return res;
 }
 
@@ -91,6 +94,11 @@ void bloem::add_function(std::function<void(void)> func, std::size_t index)
 	if(index >= functions.size()) 
 		std::cerr << "Couldn't add function, not enough memory reserved, add more memory with \"#extra_functions\" or changing the \"extra_functions\" variable";
 	functions[index] = func;
+}
+
+void bloem::add_standard_functions(void)
+{
+
 }
 
 
