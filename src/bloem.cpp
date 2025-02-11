@@ -60,10 +60,9 @@ void Bloem::setup(const char* filename_)
 	add_standard_functions();
 }
 
-
-
 void Bloem::run()
 {
+	global_bloem = this;
 	std::size_t place;
 	for(place = 0; place < instructions.size(); place++)
 	{
