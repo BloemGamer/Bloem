@@ -1,19 +1,19 @@
 #include <iostream>
 #include <filesystem>
-#include "libs/bloem.hpp"
+#include "src/bloem.hpp"
 
 void func0(void);
 void func1(void);
 
 int main(int argc, char** argv)
 {
-	bloem bloem;
+	Bloem bloem;
 	bloem.filename.replace_filename(*argv);
 	bloem.filename.remove_filename();
 	bloem.filename.append("test.txt");
 	bloem.setup();
-	bloem.add_function(func1, 1);
-	bloem.add_function(func0, 0);
+	bloem.add_function(1, func1);
+	bloem.add_function(0, func0);
 	bloem.run();
 }
 
