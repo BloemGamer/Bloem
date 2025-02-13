@@ -30,8 +30,10 @@ For using parameters and return values, there are memory cells available. For us
 ```
 
 Will fill `global_bloem->memory_cells[1]` with value 5, index 2 will be 4, ect.
-
+<!-- markdownlint-disable MD028 -->
 > [!IMPORTANT]
 > The language only supports `void(void)` functions, so no return values or parameters, they should be handled by by the memory cells.
+
 > [!WARNING]
 > Make sure there is enough memory reserved for the extra functions with `#extra_functions` or changing the `bloem_class.extra_functions` varable.
+<!-- markdownlint-enable MD028 -->
