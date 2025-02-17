@@ -147,9 +147,14 @@ void test(void)
 
 }
 
-Bloem::Bloem(/* args */)
+Bloem::Bloem()
 {
+	
+}
 
+Bloem::Bloem(std::filesystem::path filename_)
+{
+	filename.replace_filename(filename_);
 }
 
 Bloem::~Bloem()

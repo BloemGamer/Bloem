@@ -29,8 +29,8 @@ public:
 	void add_function(std::size_t index, std::function<void(void)> func);
 	void add_standard_functions(void);
 
-
-	Bloem(/* args */);
+	Bloem();
+	Bloem(std::filesystem::path filename_);
 	~Bloem();
 };
 
