@@ -16,20 +16,35 @@ static std::vector<std::string> split(std::string s, std::string delimiter);
 
 void Bloem::add_new_instructions(std::string str)
 {
+	bool end = true;
 	if(!str.size())
 		return;
 	std::vector<std::string> lines = split(str, ";");
 	for(size_t i = 0; i < lines.size(); i++)
 	{
-		if(lines[i].size() == 0)
+		if(!lines[i].size())
 		{
 			continue;
 		}
-		instructions.resize(instructions.size() + 1);
+		
 		std::vector<std::string> line = split(lines[i], " ");
 		for(size_t j = 0; j < line.size(); j++)
 		{
-			if(line[j].size() == 0)
+			if(line[j].size())
+			{
+				instructions.resize(instructions.size() + 1);
+				end = false;
+				break;
+			}
+		}
+		if(end)
+		{
+			return;
+		}
+		
+		for(size_t j = 0; j < line.size(); j++)
+		{
+			if(!line[j].size())
 			{
 				continue;
 			}
@@ -60,15 +75,15 @@ void Bloem::setup(const char* filename_)
 		}
 		if((place = text_file.find("#HEX")) != std::string::npos)
 		{
-			counting_base = 16;
 			add_new_instructions(file);
+			counting_base = 16;
 			file.clear();
 			continue;
 		}
 		if((place = text_file.find("#DEC")) != std::string::npos)
 		{
-			counting_base = 10;
 			add_new_instructions(file);
+			counting_base = 10;
 			file.clear();
 			continue;
 		}
