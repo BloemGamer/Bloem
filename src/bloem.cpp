@@ -14,41 +14,11 @@ Bloem* global_bloem;
 
 static std::vector<std::string> split(std::string s, std::string delimiter);
 
-void Bloem::setup(const char* filename_)
+void Bloem::add_new_instructions(std::string str)
 {
-	global_bloem = this;
-	std::size_t amount_lines;
-	std::string text_file;
-	std::string file;
-	if((int)std::strcmp(filename_, " "))
-		filename.replace_filename(filename_);
-	std::ifstream input(filename);
-	for(amount_lines = 0; std::getline(input, text_file); amount_lines++)
-	{
-		std::size_t place;
-		if((place = text_file.find("#extra_functions")) != std::string::npos)
-		{
-			extra_functions = __max(extra_functions, std::atoll(text_file.c_str() + std::strlen((char*)"#extra_functions ") + place));
-			continue;
-		}
-		if((place = text_file.find("#HEX")) != std::string::npos)
-		{
-			counting_base = 16;
-			continue;
-		}
-		if((place = text_file.find("#DEC")) != std::string::npos)
-		{
-			counting_base = 10;
-			continue;
-		}
-		
-		file.append(text_file, 0, text_file.find("//"));
-		file.append(" ");
-	}
-
-	instructions.clear();
-
-	std::vector<std::string> lines = split(file, ";");
+	if(!str.size())
+		return;
+	std::vector<std::string> lines = split(str, ";");
 	for(size_t i = 0; i < lines.size(); i++)
 	{
 		if(lines[i].size() == 0)
@@ -66,7 +36,51 @@ void Bloem::setup(const char* filename_)
 			instructions[instructions.size() - 1].push_back(strtoll(line[j].c_str(), 0, counting_base));
 		}
 	}
+}
 
+void Bloem::setup(const char* filename_)
+{
+	global_bloem = this;
+	std::size_t amount_lines;
+	std::string text_file;
+	std::string file;
+	if((int)std::strcmp(filename_, " "))
+		filename.replace_filename(filename_);
+	std::ifstream input(filename);
+	instructions.clear();
+
+
+	for(amount_lines = 0; std::getline(input, text_file); amount_lines++)
+	{
+		std::size_t place;
+		if((place = text_file.find("#extra_functions")) != std::string::npos)
+		{
+			extra_functions = __max(extra_functions, std::atoll(text_file.c_str() + std::strlen((char*)"#extra_functions ") + place));
+			continue;
+		}
+		if((place = text_file.find("#HEX")) != std::string::npos)
+		{
+			counting_base = 16;
+			add_new_instructions(file);
+			file.clear();
+			continue;
+		}
+		if((place = text_file.find("#DEC")) != std::string::npos)
+		{
+			counting_base = 10;
+			add_new_instructions(file);
+			file.clear();
+			continue;
+		}
+		
+		file.append(text_file, 0, text_file.find("//"));
+		file.append(" ");
+	}
+
+	
+
+	add_new_instructions(file);
+	file.clear();
 	input.close();
 	functions.resize(__max(functions.size(), extra_functions + amount_basic_instructions));
 	add_standard_functions();

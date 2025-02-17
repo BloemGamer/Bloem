@@ -15,6 +15,7 @@ private:
 	std::size_t amount_basic_instructions = 1;
 
 	int counting_base = 10;
+	void add_new_instructions(std::string str);
 public:
 	void* memory_cells[AMOUNT_MEMORYCELLS];
 	std::filesystem::path filename;
