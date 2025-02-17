@@ -12,7 +12,9 @@ private:
 	std::vector<std::vector<long long>> instructions;
 	
 	std::size_t extra_functions = 0;
-	std::size_t amount_basic_instructions = 0;
+	std::size_t amount_basic_instructions = 1;
+
+	int counting_base = 10;
 public:
 	void* memory_cells[AMOUNT_MEMORYCELLS];
 	std::filesystem::path filename;

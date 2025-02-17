@@ -25,11 +25,23 @@ void Bloem::setup(const char* filename_)
 	std::ifstream input(filename);
 	for(amount_lines = 0; std::getline(input, text_file); amount_lines++)
 	{
-		if((std::size_t)text_file.find("#extra_functions") != std::string::npos)
+		std::size_t place;
+		if((place = text_file.find("#extra_functions")) != std::string::npos)
 		{
-			extra_functions = __max(extra_functions, std::atoll(text_file.c_str() + std::strlen((char*)"#extra_functions ")));
+			extra_functions = __max(extra_functions, std::atoll(text_file.c_str() + std::strlen((char*)"#extra_functions ") + place));
 			continue;
 		}
+		if((place = text_file.find("#HEX")) != std::string::npos)
+		{
+			counting_base = 16;
+			continue;
+		}
+		if((place = text_file.find("#DEC")) != std::string::npos)
+		{
+			counting_base = 10;
+			continue;
+		}
+		
 		file.append(text_file, 0, text_file.find("//"));
 		file.append(" ");
 	}
@@ -51,7 +63,7 @@ void Bloem::setup(const char* filename_)
 			{
 				continue;
 			}
-			instructions[instructions.size() - 1].push_back(strtoll(line[j].c_str(), 0, 10));
+			instructions[instructions.size() - 1].push_back(strtoll(line[j].c_str(), 0, counting_base));
 		}
 	}
 
