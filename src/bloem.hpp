@@ -13,7 +13,7 @@ private:
 	
 	std::size_t extra_functions = 0;
 	std::size_t amount_basic_instructions = 2;
-	std::size_t place_in_file = 0;
+	std::size_t line_index = 0;
 
 	std::filesystem::path filename;
 	

@@ -109,19 +109,19 @@ void Bloem::setup(void)
 void Bloem::run()
 {
 	global_bloem = this;
-	for(place_in_file = 0; place_in_file < instructions.size(); place_in_file++)
+	for(line_index = 0; line_index < instructions.size(); line_index++)
 	{
 		if(exit_ == true)
 		{
 			return;
 		}
-		if(instructions[place_in_file].size() == 0)
+		if(instructions[line_index].size() == 0)
 			continue;
-		for(size_t place_memorycell = 1; place_memorycell < __min(AMOUNT_MEMORYCELLS, instructions[place_in_file].size()); place_memorycell++)
+		for(size_t place_memorycell = 1; place_memorycell < __min(AMOUNT_MEMORYCELLS, instructions[line_index].size()); place_memorycell++)
 		{
-			memory_cells[place_memorycell] = (void*)&instructions[place_in_file][place_memorycell];
+			memory_cells[place_memorycell] = (void*)&instructions[line_index][place_memorycell];
 		}
-		functions[instructions[place_in_file][0]]();
+		functions[instructions[line_index][0]]();
 	}
 }
 
@@ -131,8 +131,6 @@ void Bloem::add_function(std::size_t index, std::function<void(void)> func)
 		std::cerr << "Couldn't add function, not enough memory reserved, add more memory with \"#extra_functions\" or changing the \"extra_functions\" variable";
 	functions[index] = func;
 }
-
-void test(void);
 
 void Bloem::add_standard_functions(void)
 {
@@ -144,7 +142,7 @@ void Bloem::add_standard_functions(void)
 
 void Bloem::jump_to_(std::size_t place)
 {
-	place_in_file = place - 1;
+	line_index = place - 1;
 }
 
 Bloem::Bloem()
