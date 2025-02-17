@@ -138,8 +138,8 @@ void Bloem::add_standard_functions(void)
 {
 	// amount_basic_instructions = 1;
 	functions.resize(__max(functions.size(), extra_functions + amount_basic_instructions));
-	add_function(0, exit_bloem);
-	add_function(1, jump_to);
+	add_function(0, Bloem_fn::exit_bloem);
+	add_function(1, Bloem_fn::jump_to);
 }
 
 void Bloem::jump_to_(std::size_t place)
