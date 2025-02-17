@@ -109,20 +109,19 @@ void Bloem::setup(void)
 void Bloem::run()
 {
 	global_bloem = this;
-	std::size_t place;
-	for(place = 0; place < instructions.size(); place++)
+	for(place_in_file = 0; place_in_file < instructions.size(); place_in_file++)
 	{
 		if(exit_ == true)
 		{
 			return;
 		}
-		if(instructions[place].size() == 0)
+		if(instructions[place_in_file].size() == 0)
 			continue;
-		for(size_t place_memorycell = 1; place_memorycell < __min(AMOUNT_MEMORYCELLS, instructions[place].size()); place_memorycell++)
+		for(size_t place_memorycell = 1; place_memorycell < __min(AMOUNT_MEMORYCELLS, instructions[place_in_file].size()); place_memorycell++)
 		{
-			memory_cells[place_memorycell] = (void*)&instructions[place][place_memorycell];
+			memory_cells[place_memorycell] = (void*)&instructions[place_in_file][place_memorycell];
 		}
-		functions[instructions[place][0]]();
+		functions[instructions[place_in_file][0]]();
 	}
 }
 

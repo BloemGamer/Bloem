@@ -13,7 +13,10 @@ private:
 	
 	std::size_t extra_functions = 0;
 	std::size_t amount_basic_instructions = 1;
+	std::size_t place_in_file = 0;
+
 	std::filesystem::path filename;
+	
 
 	int counting_base = 10;
 	void add_new_instructions(std::string str);
