@@ -13,16 +13,18 @@ private:
 	
 	std::size_t extra_functions = 0;
 	std::size_t amount_basic_instructions = 1;
+	std::filesystem::path filename;
 
 	int counting_base = 10;
 	void add_new_instructions(std::string str);
 public:
 	void* memory_cells[AMOUNT_MEMORYCELLS];
-	std::filesystem::path filename;
+	
 	std::vector<std::function<void(void)>> functions;
 	bool exit_ = false;
 
-	void setup(const char* filename = " ");
+	void setup(std::filesystem::path filename_);
+	void setup(void);
 	void run();
 	void add_function(std::size_t index, std::function<void(void)> func);
 	void add_standard_functions(void);

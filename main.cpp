@@ -8,10 +8,11 @@ void func1(void);
 int main(int argc, char** argv)
 {
 	Bloem bloem;
-	bloem.filename.replace_filename(*argv);
-	bloem.filename.remove_filename();
-	bloem.filename.append("test.txt");
-	bloem.setup();
+	std::filesystem::path filename;
+	filename.replace_filename(*argv);
+	filename.remove_filename();
+	filename.append("test.txt");
+	bloem.setup(filename);
 	bloem.add_function(1, func1);
 	bloem.add_function(0, func0);
 	bloem.run();

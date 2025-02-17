@@ -53,14 +53,19 @@ void Bloem::add_new_instructions(std::string str)
 	}
 }
 
-void Bloem::setup(const char* filename_)
+void Bloem::setup(std::filesystem::path filename_)
+{
+	filename.replace_filename(filename_);
+	setup();
+}
+
+void Bloem::setup(void)
 {
 	global_bloem = this;
 	std::size_t amount_lines;
 	std::string text_file;
 	std::string file;
-	if((int)std::strcmp(filename_, " "))
-		filename.replace_filename(filename_);
+	
 	std::ifstream input(filename);
 	instructions.clear();
 
@@ -144,10 +149,12 @@ void test(void)
 
 Bloem::Bloem(/* args */)
 {
+
 }
 
 Bloem::~Bloem()
 {
+
 }
 
 
