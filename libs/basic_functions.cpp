@@ -16,3 +16,8 @@ void exit_bloem(void)
 	global_bloem->exit_ = true;
 	return;
 }
+
+void jump_to(void)
+{
+	global_bloem->jump_to_(*(std::size_t*)global_bloem->memory_cells[1]);
+}

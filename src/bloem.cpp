@@ -136,14 +136,15 @@ void test(void);
 
 void Bloem::add_standard_functions(void)
 {
-	amount_basic_instructions = 1;
+	// amount_basic_instructions = 1;
 	functions.resize(__max(functions.size(), extra_functions + amount_basic_instructions));
 	add_function(0, exit_bloem);
+	add_function(1, jump_to);
 }
 
-void test(void)
+void Bloem::jump_to_(std::size_t place)
 {
-
+	place_in_file = place;
 }
 
 Bloem::Bloem()

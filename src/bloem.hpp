@@ -12,7 +12,7 @@ private:
 	std::vector<std::vector<long long>> instructions;
 	
 	std::size_t extra_functions = 0;
-	std::size_t amount_basic_instructions = 1;
+	std::size_t amount_basic_instructions = 2;
 	std::size_t place_in_file = 0;
 
 	std::filesystem::path filename;
@@ -31,6 +31,7 @@ public:
 	void run();
 	void add_function(std::size_t index, std::function<void(void)> func);
 	void add_standard_functions(void);
+	void jump_to_(std::size_t place);
 
 	Bloem();
 	Bloem(std::filesystem::path filename_);
