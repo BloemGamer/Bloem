@@ -144,7 +144,7 @@ void Bloem::add_standard_functions(void)
 
 void Bloem::jump_to_(std::size_t place)
 {
-	place_in_file = place;
+	place_in_file = place - 1;
 }
 
 Bloem::Bloem()
