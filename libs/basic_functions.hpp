@@ -2,8 +2,6 @@
 
 namespace Bloem_fn
 {
-
-void exit_bloem(void);
-void jump_to(void);
-
+	void exit_bloem(void);
+	void jump_to(void);
 };

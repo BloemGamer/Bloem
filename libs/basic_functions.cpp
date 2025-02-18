@@ -21,5 +21,16 @@ void Bloem_fn::exit_bloem(void)
 
 void Bloem_fn::jump_to(void)
 {
-	global_bloem->jump_to_(*(std::size_t*)global_bloem->memory_cells[1]);
+	switch(*(long long*)global_bloem->memory_cells[1])
+	{
+		case 0:
+			global_bloem->jump_to_(*(std::size_t*)global_bloem->memory_cells[2]);
+			break;
+		case 1:
+			global_bloem->jump_to_(global_bloem->from_jump_stack(*(std::size_t*)global_bloem->memory_cells[2]));
+			break;
+		default:
+			std::cerr << "Not a valid input for \"jump to\"";
+	}
+	
 }

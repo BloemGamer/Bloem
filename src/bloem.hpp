@@ -12,20 +12,24 @@ private:
 	std::vector<std::vector<long long>> instructions;
 	
 	std::size_t extra_functions = 0;
-	std::size_t amount_basic_instructions = 2;
+	std::size_t amount_basic_instructions = 3;
 	std::size_t line_index = 0;
 
 	std::filesystem::path filename;
+	std::vector<long long> jump_stack;
 	
 
 	int counting_base = 10;
 	void add_new_instructions(std::string str);
+	void add_jump_stack(long long index, long long line_index_);
+	
 public:
 	void* memory_cells[AMOUNT_MEMORYCELLS];
+	bool exit_ = false;
 	
 	std::vector<std::function<void(void)>> functions;
-	bool exit_ = false;
 
+	int from_jump_stack(long long index);
 	void setup(std::filesystem::path filename_);
 	void setup(void);
 	void run();

@@ -50,7 +50,37 @@ void Bloem::add_new_instructions(std::string str)
 			}
 			instructions[instructions.size() - 1].push_back(strtoll(line[j].c_str(), 0, counting_base));
 		}
+		if(instructions[instructions.size() - 1][0] == 2)
+		{
+			if(instructions[instructions.size() - 1].size() >= 2)
+			{
+				add_jump_stack(instructions[instructions.size() - 1][1], instructions.size() - 1);
+			}
+			else
+			{
+				exit_ = true;
+				std::cerr << "Not enough arguments in the jump_to place";
+			}
+		}		
 	}
+}
+
+void Bloem::add_jump_stack(long long index, long long line_index_)
+{
+	jump_stack.resize(__max(jump_stack.size(), index + 1));
+	jump_stack[index] = line_index_;
+	return;
+}
+
+int Bloem::from_jump_stack(long long index)
+{
+	if(index > (long long)jump_stack.size())
+	{
+		exit_ = true;
+		std::cerr << "Can't find place to jump";
+		return 0;
+	}
+	return jump_stack[index];
 }
 
 void Bloem::setup(std::filesystem::path filename_)
@@ -121,6 +151,10 @@ void Bloem::run()
 		{
 			memory_cells[place_memorycell] = (void*)&instructions[line_index][place_memorycell];
 		}
+		if(instructions[line_index][0] == 2)
+		{
+			continue;
+		}
 		functions[instructions[line_index][0]]();
 	}
 }
@@ -134,7 +168,6 @@ void Bloem::add_function(std::size_t index, std::function<void(void)> func)
 
 void Bloem::add_standard_functions(void)
 {
-	// amount_basic_instructions = 1;
 	functions.resize(__max(functions.size(), extra_functions + amount_basic_instructions));
 	add_function(0, Bloem_fn::exit_bloem);
 	add_function(1, Bloem_fn::jump_to);
@@ -144,6 +177,10 @@ void Bloem::jump_to_(std::size_t place)
 {
 	line_index = place - 1;
 }
+
+
+
+
 
 Bloem::Bloem()
 {
