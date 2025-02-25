@@ -34,3 +34,15 @@ void Bloem_fn::jump_to(void)
 	}
 	
 }
+
+void Bloem_fn::swap_mem(void)
+{
+	std::swap(global_bloem->memory_cells, global_bloem->memory_cells_sw);
+}
+
+void Bloem_fn::mov_to_mem(void)
+{
+	void** tmp;
+	tmp = ((int)global_bloem->memory_cells[1] ? global_bloem->memory_cells : global_bloem->memory_cells_sw);
+	tmp[(int)global_bloem->memory_cells[2]] = global_bloem->memory_cells[2];
+}

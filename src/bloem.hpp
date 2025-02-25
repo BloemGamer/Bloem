@@ -12,7 +12,7 @@ private:
 	std::vector<std::vector<long long>> instructions;
 	
 	std::size_t extra_functions = 0;
-	std::size_t amount_basic_instructions = 3;
+	std::size_t amount_basic_instructions = 5;
 	std::size_t line_index = 0;
 
 	std::filesystem::path filename;
@@ -25,6 +25,7 @@ private:
 	
 public:
 	void* memory_cells[AMOUNT_MEMORYCELLS];
+	void* memory_cells_sw[AMOUNT_MEMORYCELLS];
 	bool exit_ = false;
 	
 	std::vector<std::function<void(void)>> functions;

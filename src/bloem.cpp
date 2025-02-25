@@ -146,15 +146,18 @@ void Bloem::run()
 			return;
 		}
 		if(instructions[line_index].size() == 0)
-			continue;
-		for(size_t place_memorycell = 1; place_memorycell < __min(AMOUNT_MEMORYCELLS, instructions[line_index].size()); place_memorycell++)
 		{
-			memory_cells[place_memorycell] = (void*)&instructions[line_index][place_memorycell];
+			continue;
 		}
 		if(instructions[line_index][0] == 2)
 		{
 			continue;
 		}
+		for(size_t place_memorycell = 1; place_memorycell < __min(AMOUNT_MEMORYCELLS, instructions[line_index].size()); place_memorycell++)
+		{
+			memory_cells[place_memorycell] = (void*)&instructions[line_index][place_memorycell];
+		}
+		
 		functions[instructions[line_index][0]]();
 	}
 }
@@ -171,6 +174,8 @@ void Bloem::add_standard_functions(void)
 	functions.resize(__max(functions.size(), extra_functions + amount_basic_instructions));
 	add_function(0, Bloem_fn::exit_bloem);
 	add_function(1, Bloem_fn::jump_to);
+	add_function(3, Bloem_fn::mov_to_mem);
+	add_function(4, Bloem_fn::swap_mem);
 }
 
 void Bloem::jump_to_(std::size_t place)
