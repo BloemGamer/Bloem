@@ -59,7 +59,7 @@ void Bloem::add_new_instructions(std::string str)
 			else
 			{
 				exit_ = true;
-				std::cerr << "Not enough arguments in the jump_to place";
+				std::cerr << "Not enough arguments in the go_to place";
 			}
 		}		
 	}
@@ -173,12 +173,12 @@ void Bloem::add_standard_functions(void)
 {
 	functions.resize(__max(functions.size(), extra_functions + amount_basic_instructions));
 	add_function(0, Bloem_fn::exit_bloem);
-	add_function(1, Bloem_fn::jump_to);
+	add_function(1, Bloem_fn::go_to);
 	add_function(3, Bloem_fn::mov_to_mem);
 	add_function(4, Bloem_fn::swap_mem);
 }
 
-void Bloem::jump_to_(std::size_t place)
+void Bloem::go_to_(std::size_t place)
 {
 	line_index = place - 1;
 }

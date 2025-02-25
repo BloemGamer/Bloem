@@ -36,7 +36,7 @@ public:
 	void run();
 	void add_function(std::size_t index, std::function<void(void)> func);
 	void add_standard_functions(void);
-	void jump_to_(std::size_t place);
+	void go_to_(std::size_t place);
 
 	Bloem();
 	Bloem(std::filesystem::path filename_);
