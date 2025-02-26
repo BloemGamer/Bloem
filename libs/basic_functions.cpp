@@ -52,16 +52,26 @@ void Bloem_fn::if_(void)
 	switch((long long)global_bloem->memory_cells[1])
 	{
 		case 0:
-			((long long)global_bloem->memory_cells[2] == (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : NULL;
+			((long long)global_bloem->memory_cells[2] == (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 		case 1:
-			((long long)global_bloem->memory_cells[2] > (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : NULL;
+			((long long)global_bloem->memory_cells[2] > (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 		case 2:
-			((long long)global_bloem->memory_cells[2] >= (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : NULL;
+			((long long)global_bloem->memory_cells[2] >= (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 		case 3:
-			((long long)global_bloem->memory_cells[2] < (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : NULL;
+			((long long)global_bloem->memory_cells[2] < (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 		case 4:
-			((long long)global_bloem->memory_cells[2] <= (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : NULL;
+			((long long)global_bloem->memory_cells[2] <= (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 		case 5:
-			((long long)global_bloem->memory_cells[2] != (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : NULL;
+			((long long)global_bloem->memory_cells[2] != (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 	}
+}
+
+void Bloem_fn::go_to_fn_(void)
+{
+	global_bloem->got_to_fn(global_bloem->line_index_fn[(long long)global_bloem->instructions[global_bloem->line_index][0]]);
+}
+
+void Bloem_fn::return_(void)
+{
+	global_bloem->return_fn();
 }

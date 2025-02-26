@@ -7,4 +7,6 @@ namespace Bloem_fn
 	void swap_mem(void);
 	void mov_to_mem(void);
 	void if_(void);
+	void go_to_fn_(void);
+	void return_(void);
 };

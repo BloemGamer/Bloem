@@ -7,12 +7,42 @@
 #include <cstring>
 #include <algorithm>
 #include <regex>
+#include <stack>
 #include "bloem.hpp"
 #include "../libs/basic_functions.hpp"
 
 Bloem* global_bloem;
 
 static std::vector<std::string> split(std::string s, std::string delimiter);
+
+void Bloem::add_in_file_function(long long fn_index, long long line_index_)
+{
+	if(fn_index >= 0)
+	{
+		std::cerr << "something went wrong with making the function";
+		global_bloem->exit_ = true;
+		return;
+	}
+
+	fn_index *= -1;
+	line_index_fn.resize(__max(line_index_fn.size(), fn_index + 1));
+	functions.resize(__max(functions.size(), fn_index + 1));
+
+	line_index_fn[fn_index] = line_index_;
+	add_function(fn_index, Bloem_fn::go_to_fn_);
+}
+
+void Bloem::got_to_fn(long long line_index_)
+{
+	function_stack.push(line_index);
+	go_to_(line_index_);
+}
+
+void Bloem::return_fn(void)
+{
+	line_index = function_stack.top();
+	function_stack.pop();
+}
 
 void Bloem::add_new_instructions(std::string str)
 {
@@ -61,7 +91,11 @@ void Bloem::add_new_instructions(std::string str)
 				exit_ = true;
 				std::cerr << "Not enough arguments in the go_to place";
 			}
-		}		
+		}
+		if(instructions[instructions.size() - 1][0] < 0)
+		{
+			add_in_file_function(instructions[instructions.size() - 1][0], instructions.size() - 1);
+		}
 	}
 }
 
@@ -157,8 +191,10 @@ void Bloem::run()
 		{
 			memory_cells[place_memorycell] = (void*)&instructions[line_index][place_memorycell];
 		}
-		
-		functions[instructions[line_index][0]]();
+		if((long long)instructions[line_index][0] >= 0)
+		{
+			functions[instructions[line_index][0]]();
+		}
 	}
 }
 
@@ -177,6 +213,7 @@ void Bloem::add_standard_functions(void)
 	add_function(3, Bloem_fn::mov_to_mem);
 	add_function(4, Bloem_fn::swap_mem);
 	add_function(5, Bloem_fn::if_);
+	add_function(6, Bloem_fn::return_);
 }
 
 void Bloem::go_to_(std::size_t place)
