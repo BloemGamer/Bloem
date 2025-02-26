@@ -12,8 +12,7 @@ private:
 	std::vector<std::vector<long long>> instructions;
 	
 	std::size_t extra_functions = 0;
-	std::size_t amount_basic_instructions = 5;
-	std::size_t line_index = 0;
+	std::size_t amount_basic_instructions = 6;
 
 	std::filesystem::path filename;
 	std::vector<long long> jump_stack;
@@ -28,6 +27,7 @@ public:
 	void* memory_cells_sw[AMOUNT_MEMORYCELLS];
 	bool exit_ = false;
 	
+	std::size_t line_index = 0;
 	std::vector<std::function<void(void)>> functions;
 
 	int from_jump_stack(long long index);

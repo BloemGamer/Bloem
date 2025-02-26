@@ -176,6 +176,7 @@ void Bloem::add_standard_functions(void)
 	add_function(1, Bloem_fn::go_to);
 	add_function(3, Bloem_fn::mov_to_mem);
 	add_function(4, Bloem_fn::swap_mem);
+	add_function(5, Bloem_fn::if_);
 }
 
 void Bloem::go_to_(std::size_t place)
