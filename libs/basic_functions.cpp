@@ -43,8 +43,8 @@ void Bloem_fn::swap_mem(void)
 void Bloem_fn::mov_to_mem(void)
 {
 	void** tmp;
-	tmp = ((long long)global_bloem->memory_cells[1] ? global_bloem->memory_cells : global_bloem->memory_cells_sw);
-	tmp[(long long)global_bloem->memory_cells[2]] = global_bloem->memory_cells[2];
+	tmp = (*(long long*)global_bloem->memory_cells[1] ? global_bloem->memory_cells : global_bloem->memory_cells_sw);
+	tmp[(void*)global_bloem->memory_cells[2]] = (void*)global_bloem->memory_cells[2];
 }
 
 void Bloem_fn::if_(void)
@@ -52,17 +52,17 @@ void Bloem_fn::if_(void)
 	switch((long long)global_bloem->memory_cells[1])
 	{
 		case 0:
-			((long long)global_bloem->memory_cells[2] == (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
+			(*(long long*)global_bloem->memory_cells[2] == *(long long*)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 		case 1:
-			((long long)global_bloem->memory_cells[2] > (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
+			(*(long long*)global_bloem->memory_cells[2] > *(long long*)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 		case 2:
-			((long long)global_bloem->memory_cells[2] >= (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
+			(*(long long*)global_bloem->memory_cells[2] >= *(long long*)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 		case 3:
-			((long long)global_bloem->memory_cells[2] < (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
+			(*(long long*)global_bloem->memory_cells[2] < *(long long*)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 		case 4:
-			((long long)global_bloem->memory_cells[2] <= (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
+			(*(long long*)global_bloem->memory_cells[2] <= *(long long*)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 		case 5:
-			((long long)global_bloem->memory_cells[2] != (long long)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
+			(*(long long*)global_bloem->memory_cells[2] != *(long long*)global_bloem->memory_cells[1]) ? global_bloem->line_index++ : 0;
 	}
 }
 
