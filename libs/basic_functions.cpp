@@ -44,7 +44,7 @@ void Bloem_fn::mov_to_mem(void)
 {
 	void** tmp;
 	tmp = (*(long long*)global_bloem->memory_cells[1] ? global_bloem->memory_cells : global_bloem->memory_cells_sw);
-	tmp[(void*)global_bloem->memory_cells[2]] = (void*)global_bloem->memory_cells[2];
+	tmp[*(long long*)global_bloem->memory_cells[2]] = global_bloem->memory_cells[2];
 }
 
 void Bloem_fn::if_(void)
