@@ -5,6 +5,15 @@
 #include <functional>
 #include <stack>
 
+#ifndef __max
+    #define __max(a,b) (((a) > (b)) ? (a) : (b))
+#endif
+
+#ifndef __min
+	#define __min(a,b) (((a) < (b)) ? (a) : (b))
+#endif
+
+
 #define AMOUNT_MEMORYCELLS 9
 
 class Bloem
